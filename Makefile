@@ -1,4 +1,3 @@
-
 CC=avr-gcc
 OBJ=avr-objcopy
 DUMP=avr-objdump
@@ -21,13 +20,15 @@ build:
 	$(CC) -g $(CFLAGS) -Os -mmcu=$(TARGET) -c egaston_serial.c
 	$(CC) -g $(CFLAGS) -Os -mmcu=$(TARGET) -c i2c_master.c
 	$(CC) -g $(CFLAGS) -Os -mmcu=$(TARGET) -c egaston_pwm.c
+	$(CC) -g $(CFLAGS) -Os -mmcu=$(TARGET) -c egaston_watchdog.c
 	$(CC) -g $(CFLAGS) -Os -mmcu=$(TARGET) -c egaston.c
 	$(CC) -g $(CFLAGS) -g -mmcu=$(TARGET) -o egaston.elf \
 		egaston.o \
 		egaston_nunchuck.o \
 		egaston_serial.o \
 		i2c_master.o \
-		egaston_pwm.o
+		egaston_pwm.o \
+		egaston_watchdog.o 
 	$(OBJ) -j .text -j .data -O ihex egaston.elf egaston.hex
 
 dump:
@@ -36,6 +37,7 @@ dump:
 clean:
 	rm -f *.o
 	rm -f egaston.hex
+	rm -f egaston.elf
 	rm -f *~
 
 flash:

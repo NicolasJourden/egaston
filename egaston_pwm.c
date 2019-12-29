@@ -2,7 +2,7 @@
  * Nicolas JOURDEN - 13/01/2017
  **/
 
-#include "egaston_pwm.h"
+#include "egaston.h"
 
 void gaston_pwm_init (void)
 {
@@ -32,24 +32,23 @@ void gaston_pwm_init (void)
   TCCR2B |= (1 << CS21);
 }
 
-uint8_t gaston_pwm_read (void)
-{
-
-  return 0;
-}
-
-void gaston_pwm_write (int16_t pRequestedValueA, int16_t pRequestedValueB)
+/**
+ * Set the PWN.
+ * @param pRequestedValueA in per +/- 1000.
+ * @param pRequestedValueB in per +/- 100.
+ */
+void gaston_pwm_set (int16_t pRequestedValueA, int16_t pRequestedValueB)
 {
   // Motor A:
   if (pRequestedValueA > 0)
   {
-    OCR0A = (pRequestedValueA > EGASTON_PWM_MAX ? EGASTON_PWM_MAX : pRequestedValueA);
+    OCR0A = get_pwm_from_per(pRequestedValueA);
     OCR0B = 0x00;
   }
   else if (pRequestedValueA < 0)
   {
     OCR0A = 0x00;
-    OCR0B = (pRequestedValueA < -EGASTON_PWM_MAX ? EGASTON_PWM_MAX : -pRequestedValueA);
+    OCR0B = get_pwm_from_per(pRequestedValueA);
   }
   else
   {
@@ -60,13 +59,13 @@ void gaston_pwm_write (int16_t pRequestedValueA, int16_t pRequestedValueB)
   // Motor B:
   if (pRequestedValueB > 0)
   {
-    OCR2A = (pRequestedValueB > EGASTON_PWM_MAX ? EGASTON_PWM_MAX : pRequestedValueB);
+    OCR2A = get_pwm_from_per(pRequestedValueB);
     OCR2B = 0x00;
   }
   else if (pRequestedValueB < 0)
   {
     OCR2A = 0x00;
-    OCR2B = (pRequestedValueB < -EGASTON_PWM_MAX ? EGASTON_PWM_MAX : -pRequestedValueB);
+    OCR2B = get_pwm_from_per(pRequestedValueB);
   }
   else
   {

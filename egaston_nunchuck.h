@@ -1,6 +1,3 @@
-
-#include "egaston.h"
-
 #include "i2c_master.h"
 
 #include <inttypes.h>
@@ -15,25 +12,6 @@
 #include <math.h>
 #include <string.h>
 
-#ifndef sNUNCHUCK_DATA_SIZE
-#pragma pack(push, 1)
-typedef struct {
-  uint8_t joystick_x;
-  uint8_t joystick_y;
-  int8_t accelerometer_x;
-  int8_t accelerometer_y;
-  int8_t accelerometer_z;
-  uint8_t accelerometer_x_2 : 2;
-  uint8_t accelerometer_y_2 : 2;
-  uint8_t accelerometer_z_2 : 2;
-  uint8_t button_c_status : 1;
-  uint8_t button_z_status : 1;
-
-} sNUNCHUCK_DATA;
-#pragma pack(pop)
-#define sNUNCHUCK_DATA_SIZE	sizeof(sNUNCHUCK_DATA)
-#endif
-
 #define NUNCHUCK_PACKET_SIZE        6
 //#define NUNCHUCK_ADDRESS            0x52
 #define NUNCHUCK_ADDRESS            0xA4
@@ -44,6 +22,7 @@ void egaston_nunchuck_init();
 void egaston_nunchuck_probe();
 void egaston_nunchuck_disinit();
 uint8_t egaston_nunchuck_read_data(sNUNCHUCK_DATA * pData);
+uint8_t egaston_nunchuck_cheksum(sNUNCHUCK_DATA * pData);
 
 // Nunchuck constants:
 // MAX is for full speed.
@@ -55,4 +34,6 @@ uint8_t egaston_nunchuck_read_data(sNUNCHUCK_DATA * pData);
 #define NUNCHUCK_MIN_X             0
 #define NUNCHUCK_DEFAULT_IDLE_Y    124
 #define NUNCHUCK_DEFAULT_IDLE_X    129
+#define getPercentX(p1,p2)	   
+#define getPercentY(p1,p2)	   
 

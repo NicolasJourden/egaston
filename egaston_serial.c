@@ -3,7 +3,6 @@
  **/
 
 #include "egaston.h"
-#include "egaston_serial.h"
 
 void egaston_serial_init()
 {
