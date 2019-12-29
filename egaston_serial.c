@@ -43,3 +43,4 @@ char egaston_serial_getchar(void)
     loop_until_bit_is_set(UCSR0A, RXC0); /* Wait until data exists. */
     return UDR0;
 }
+

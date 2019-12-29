@@ -74,3 +74,4 @@ void gaston_pwm_write (int16_t pRequestedValueA, int16_t pRequestedValueB)
     OCR2B = 0x00;
   }
 }
+
